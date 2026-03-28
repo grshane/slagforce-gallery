@@ -71,7 +71,11 @@
   <button onclick="show('optionE')">Option E (40°)</button>
   <button onclick="show('rolldown')">Roll-Down v1</button>
   <button onclick="show('trailfork')">Trail Fork Roll-Down</button>
-  <button onclick="show('compare')">Compare Side-by-Side</button>
+  <span class="nav-label" style="margin-left:0.5rem">Berm:</span>
+  <button onclick="show('bermA')">Berm A (19ft, 44°)</button>
+  <button onclick="show('bermB')">Berm B (15ft, 53°)</button>
+  <button onclick="show('bermCompare')">Compare Berms</button>
+  <button onclick="show('compare')">Compare All</button>
 </div>
 
 <main>
@@ -196,6 +200,60 @@
     </div>
     <div class="card-body">
       <object type="image/svg+xml" data="bridge_drop_trail_fork.svg"></object>
+    </div>
+  </div>
+
+  <!-- Berm Option A -->
+  <div class="card" id="bermA">
+    <div class="card-header">
+      <h2>180° Berm — Option A (Relaxed)</h2>
+      <p>Placed 19 feet from the lander transition. Gives riders a comfortable braking zone to scrub from ~17 mph down to ~12 mph before entering. The 44° bank angle is steep but very rideable — a natural match for the skill level of anyone hitting this drop.</p>
+      <div class="card-stats">
+        <span class="stat">Radius: <em>10'</em></span>
+        <span class="stat">Turn arc: <em>180°</em></span>
+        <span class="stat">Bank angle: <em>44°</em></span>
+        <span class="stat">Lip height: <em>~4' 2"</em></span>
+        <span class="stat">Riding surface: <em>6' wide</em></span>
+        <span class="stat">Entry speed: <em>~12 mph</em></span>
+        <span class="stat">Gap from lander: <em>19'</em></span>
+        <span class="stat">Berm center: <em>29' from lander</em></span>
+      </div>
+    </div>
+    <div class="card-body">
+      <object type="image/svg+xml" data="berm_option_A.svg"></object>
+    </div>
+  </div>
+
+  <!-- Berm Option B -->
+  <div class="card" id="bermB">
+    <div class="card-header">
+      <h2>180° Berm — Option B (Punchy)</h2>
+      <p>Pulled in to 15 feet from the lander. Riders enter hotter at ~14 mph, requiring a steeper 53° bank. Less braking time, more G-force in the turn — a more aggressive, punchier ride that keeps the energy flowing.</p>
+      <div class="card-stats">
+        <span class="stat">Radius: <em>10'</em></span>
+        <span class="stat">Turn arc: <em>180°</em></span>
+        <span class="stat">Bank angle: <em>53°</em></span>
+        <span class="stat">Lip height: <em>~4' 10"</em></span>
+        <span class="stat">Riding surface: <em>6' wide</em></span>
+        <span class="stat">Entry speed: <em>~14 mph</em></span>
+        <span class="stat">Gap from lander: <em>15'</em></span>
+        <span class="stat">Berm center: <em>25' from lander</em></span>
+      </div>
+    </div>
+    <div class="card-body">
+      <object type="image/svg+xml" data="berm_option_B.svg"></object>
+    </div>
+  </div>
+
+  <!-- Berm side-by-side -->
+  <div class="compare-view" id="bermCompare">
+    <div class="compare-card">
+      <div class="card-header"><h3>Berm A — 19ft gap, 44° bank, 12 mph entry</h3></div>
+      <div class="card-body"><object type="image/svg+xml" data="berm_option_A.svg"></object></div>
+    </div>
+    <div class="compare-card">
+      <div class="card-header"><h3>Berm B — 15ft gap, 53° bank, 14 mph entry</h3></div>
+      <div class="card-body"><object type="image/svg+xml" data="berm_option_B.svg"></object></div>
     </div>
   </div>
 

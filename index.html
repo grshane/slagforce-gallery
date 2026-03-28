@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bridge Drop — Design Options Gallery</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #1a1a2e; color: #e0e0e0; }
+
+  header { background: linear-gradient(135deg, #16213e, #0f3460); padding: 2.5rem 2rem 2rem; border-bottom: 3px solid #e94560; }
+  header h1 { font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+  header p { color: #a0b4c8; font-size: 1rem; }
+
+  .specs { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem; }
+  .spec-chip { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 0.4rem 0.8rem; font-size: 0.85rem; color: #c8d6e5; }
+  .spec-chip strong { color: #e94560; }
+
+  .nav { background: #16213e; padding: 1rem 2rem; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #0f3460; display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+  .nav-label { color: #a0b4c8; font-size: 0.85rem; margin-right: 0.5rem; font-weight: 600; }
+  .nav button { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #c8d6e5; padding: 0.45rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.82rem; transition: all 0.2s; }
+  .nav button:hover { background: rgba(233,69,96,0.15); border-color: #e94560; }
+  .nav button.active { background: #e94560; color: #fff; border-color: #e94560; }
+
+  main { padding: 2rem; }
+
+  .card { display: none; background: #16213e; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
+  .card.visible { display: block; }
+  .card-header { padding: 1.2rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .card-header h2 { font-size: 1.3rem; color: #fff; margin-bottom: 0.3rem; }
+  .card-header p { color: #a0b4c8; font-size: 0.9rem; line-height: 1.5; }
+  .card-stats { display: flex; gap: 1rem; margin-top: 0.8rem; flex-wrap: wrap; }
+  .stat { background: rgba(255,255,255,0.04); padding: 0.35rem 0.7rem; border-radius: 4px; font-size: 0.8rem; }
+  .stat em { color: #e94560; font-style: normal; font-weight: 600; }
+
+  .card-body { padding: 1rem; background: #fff; }
+  .card-body object { width: 100%; height: auto; min-height: 400px; }
+
+  .compare-view { display: none; }
+  .compare-view.visible { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .compare-card { background: #16213e; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
+  .compare-card .card-header { padding: 0.8rem 1rem; }
+  .compare-card .card-header h3 { font-size: 1rem; color: #fff; }
+  .compare-card .card-body { padding: 0.5rem; }
+  .compare-card .card-body object { min-height: 300px; }
+
+  footer { text-align: center; padding: 2rem; color: #555; font-size: 0.8rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Bridge Drop — Design Options</h1>
+  <p>All design iterations for the bridge drop feature with log crib lander</p>
+  <div class="specs">
+    <div class="spec-chip"><strong>Bridge:</strong> 10' × 2'</div>
+    <div class="spec-chip"><strong>Clearance:</strong> 3'</div>
+    <div class="spec-chip"><strong>Vertical drop:</strong> 11' to lander top</div>
+    <div class="spec-chip"><strong>Drop to ground:</strong> 15' 6"</div>
+    <div class="spec-chip"><strong>Lander:</strong> 4' 6" tall</div>
+    <div class="spec-chip"><strong>Gap:</strong> 4' horizontal</div>
+  </div>
+</header>
+
+<div class="nav">
+  <span class="nav-label">View:</span>
+  <button class="active" onclick="show('original')">Original 18°</button>
+  <button onclick="show('25deg')">25° Lander</button>
+  <button onclick="show('30deg')">30° Lander</button>
+  <button onclick="show('35deg')">35° Lander</button>
+  <button onclick="show('optionE')">Option E (40°)</button>
+  <button onclick="show('rolldown')">Roll-Down v1</button>
+  <button onclick="show('trailfork')">Trail Fork Roll-Down</button>
+  <button onclick="show('compare')">Compare Side-by-Side</button>
+</div>
+
+<main>
+
+  <!-- Original 18° -->
+  <div class="card visible" id="original">
+    <div class="card-header">
+      <h2>Original Design — 18° Lander</h2>
+      <p>The baseline design with an 18° landing slope. This was the initial spec — flat and forgiving but with a harsh 51° impact angle relative to the slope.</p>
+      <div class="card-stats">
+        <span class="stat">Landing angle: <em>18°</em></span>
+        <span class="stat">Impact relative to slope: <em>~51°</em></span>
+        <span class="stat">Required speed: <em>~7.1 mph</em></span>
+        <span class="stat">Sweet spot: <em>14' out</em></span>
+      </div>
+    </div>
+    <div class="card-body">
+      <object type="image/svg+xml" data="bridge_drop.svg"></object>
+    </div>
+  </div>
+
+  <!-- 25° -->
+  <div class="card" id="25deg">
+    <div class="card-header">
+      <h2>25° Lander</h2>
+      <p>First steeper option. Moderately reduces the impact angle — a step in the right direction but still quite firm on landing.</p>
+      <div class="card-stats">
+        <span class="stat">Landing angle: <em>25°</em></span>
+        <span class="stat">Impact relative to slope: <em>~45°</em></span>
+        <span class="stat">Required speed: <em>~7.0 mph</em></span>
+        <span class="stat">Sweet spot: <em>9' out</em></span>
+      </div>
+    </div>
+    <div class="card-body">
+      <object type="image/svg+xml" data="bridge_drop_25deg.svg"></object>
+    </div>
+  </div>
+
+  <!-- 30° -->
+  <div class="card" id="30deg">
+    <div class="card-header">
+      <h2>30° Lander</h2>
+      <p>Good middle ground. Noticeably softer landing than 25°, with a manageable slope for the build.</p>
+      <div class="card-stats">
+        <span class="stat">Landing angle: <em>30°</em></span>
+        <span class="stat">Impact relative to slope: <em>~40°</em></span>
+        <span class="stat">Required speed: <em>~6.9 mph</em></span>
+        <span class="stat">Sweet spot: <em>9' out</em></span>
+      </div>
+    </div>
+    <div class="card-body">
+      <object type="image/svg+xml" data="bridge_drop_30deg.svg"></object>
+    </div>
+  </div>
+
+  <!-- 35° -->
+  <div class="card" id="35deg">
+    <div class="card-header">
+      <h2>35° Lander</h2>
+      <p>Aggressive but effective. Significant improvement in landing quality — the slope absorbs much more of the rider's velocity.</p>
+      <div class="card-stats">
+        <span class="stat">Landing angle: <em>35°</em></span>
+        <span class="stat">Impact relative to slope: <em>~36°</em></span>
+        <span class="stat">Required speed: <em>~6.8 mph</em></span>
+        <span class="stat">Sweet spot: <em>9' out</em></span>
+      </div>
+    </div>
+    <div class="card-body">
+      <object type="image/svg+xml" data="bridge_drop_35deg.svg"></object>
+    </div>
+  </div>
+
+  <!-- Option E -->
+  <div class="card" id="optionE">
+    <div class="card-header">
+      <h2>Option E — 40° Lander, 4' Case Pad, 12' Sweet Spot</h2>
+      <p>The recommended optimized design. 40° lander with the sweet spot pushed to 12' and an extended 4' case pad for safety margin. Best landing quality of the non-roll-down options.</p>
+      <div class="card-stats">
+        <span class="stat">Landing angle: <em>40°</em></span>
+        <span class="stat">Impact relative to slope: <em>~29°</em></span>
+        <span class="stat">Required speed: <em>~8.5 mph</em></span>
+        <span class="stat">Sweet spot: <em>12' out</em></span>
+        <span class="stat">Case pad: <em>4'</em></span>
+        <span class="stat">Total impact speed: <em>~22.5 mph</em></span>
+        <span class="stat">Perpendicular impact: <em>~10.3 mph (like a 3.6' flat drop)</em></span>
+      </div>
+    </div>
+    <div class="card-body">
+      <object type="image/svg+xml" data="bridge_drop_option_E.svg"></object>
+    </div>
+  </div>
+
+  <!-- Roll-Down v1 (bridge exit) -->
+  <div class="card" id="rolldown">
+    <div class="card-header">
+      <h2>Roll-Down v1 — Exits Bridge End</h2>
+      <p>First iteration of the side roll-down concept. The ramp exits from the bridge end and curves back to the lander. Superseded by the trail-fork version.</p>
+      <div class="card-stats">
+        <span class="stat">Landing angle: <em>40°</em></span>
+        <span class="stat">Roll-down: <em>38° slope, 14' run</em></span>
+        <span class="stat">Roll-down exits: <em>bridge end</em></span>
+      </div>
+    </div>
+    <div class="card-body">
+      <object type="image/svg+xml" data="bridge_drop_rolldown_v2.svg"></object>
+    </div>
+  </div>
+
+  <!-- Trail Fork Roll-Down (final) -->
+  <div class="card" id="trailfork">
+    <div class="card-header">
+      <h2>Trail Fork Roll-Down — Final Design</h2>
+      <p>The roll-down forks off the main trail before the bridge (40° between trail and bridge). Riders choose their line at the fork: bridge for the drop, or main trail for the rollable ramp that curves down and merges into the lander. Both lines share the same lander and runout.</p>
+      <div class="card-stats">
+        <span class="stat">Landing angle: <em>40°</em></span>
+        <span class="stat">Roll-down: <em>38° slope, 14' run, 3' wide</em></span>
+        <span class="stat">Trail/bridge angle: <em>40°</em></span>
+        <span class="stat">Roll-down exits: <em>trail fork (before bridge)</em></span>
+        <span class="stat">Drop speed: <em>~8.5 mph takeoff, ~22.5 mph at landing</em></span>
+        <span class="stat">Roll-down no-brakes speed: <em>~18 mph</em></span>
+      </div>
+    </div>
+    <div class="card-body">
+      <object type="image/svg+xml" data="bridge_drop_trail_fork.svg"></object>
+    </div>
+  </div>
+
+  <!-- Side-by-side compare -->
+  <div class="compare-view" id="compare">
+    <div class="compare-card">
+      <div class="card-header"><h3>Original — 18° Lander</h3></div>
+      <div class="card-body"><object type="image/svg+xml" data="bridge_drop.svg"></object></div>
+    </div>
+    <div class="compare-card">
+      <div class="card-header"><h3>Trail Fork Roll-Down — 40° Lander (Final)</h3></div>
+      <div class="card-body"><object type="image/svg+xml" data="bridge_drop_trail_fork.svg"></object></div>
+    </div>
+    <div class="compare-card">
+      <div class="card-header"><h3>Option E — 40° Lander, No Roll-Down</h3></div>
+      <div class="card-body"><object type="image/svg+xml" data="bridge_drop_option_E.svg"></object></div>
+    </div>
+    <div class="compare-card">
+      <div class="card-header"><h3>35° Lander</h3></div>
+      <div class="card-body"><object type="image/svg+xml" data="bridge_drop_35deg.svg"></object></div>
+    </div>
+  </div>
+
+</main>
+
+<footer>Bridge Drop Design Gallery — Generated March 2026</footer>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.card, .compare-view').forEach(el => el.classList.remove('visible'));
+  document.querySelectorAll('.nav button').forEach(btn => btn.classList.remove('active'));
+  document.getElementById(id).classList.add('visible');
+  event.target.classList.add('active');
+  window.scrollTo({ top: document.querySelector('main').offsetTop - 60, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
